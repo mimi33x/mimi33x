@@ -1,158 +1,113 @@
 # อยู่ด้านบนของ Edit raw configuration editor
 
-- addon : 
-https://github.com/custom-cards/decluttering-card
-https://github.com/thomasloven/lovelace-card-mod
-https://github.com/ofekashery/vertical-stack-in-card
-https://github.com/jcwillox/lovelace-paper-buttons-row
+req hacs card : 
 
-เพิ่ม template แล้ว add card ผ่าน custom:decluttering-card
+card-mod
+  https://github.com/thomasloven/lovelace-card-mod
+button-card
+  https://github.com/custom-cards/button-card
+stack-in-card #แล้วแต่จะชอบ จะใช้ตัวอื่นก็ได้ เช่น grid 
+  https://github.com/ofekashery/vertical-stack-in-card
+
+ขั้นตอน
+1. + ADD CARD > Manual > Paste > แก้ไขตามใจชอบ
 --------------------------------------------------------
-decluttering_templates:
-  footer_sticky_menu:
-    card:
-      type: entities
-      entities:
-        - type: custom:paper-buttons-row
-          buttons:
-            - layout: icon
-              icon: mdi:desktop-classic
-              name: Office
-              tap_action:
-                action: navigate
-                navigation_path: /lovelace/office
-              style:
-                button:
-                  width: 42px
-                  height: 42px
-                icon:
-                  margin-top: 0
-                name:
-                  margin-top: 20px
-            - layout: icon
-              icon: mdi:chef-hat
-              name: Kitchen
-              tap_action:
-                action: navigate
-                navigation_path: /lovelace/kitchen
-              style:
-                button:
-                  width: 42px
-                  height: 42px
-                icon:
-                  margin-top: 0
-                name:
-                  margin-top: 20px
-            - layout: icon
-              icon: mdi:land-plots
-              name: 2F
-              tap_action:
-                action: navigate
-                navigation_path: /lovelace/2fl
-              style:
-                button:
-                  width: 42px
-                  height: 42px
-                icon:
-                  margin-top: 0
-                name:
-                  margin-top: 20px
-            - icon: mdi:shower-head
-              layout: icon
-              name: Bathroom
-              tap_action:
-                action: navigate
-                navigation_path: /lovelace/bathroom
-              style:
-                button:
-                  width: 42px
-                  height: 42px
-                icon:
-                  margin-top: 0
-                name:
-                  margin-top: 20px
-            - layout: icon
-              icon: mdi:bed-empty
-              name: Bedroom
-              tap_action:
-                action: navigate
-                navigation_path: /lovelace/bedroom
-              style:
-                button:
-                  width: 42px
-                  height: 42px
-                icon:
-                  margin-top: 0
-                name:
-                  margin-top: 20px
-            - layout: icon
-              icon: mdi:balcony
-              name: Balcony
-              tap_action:
-                action: navigate
-                navigation_path: /lovelace/balcony
-              style:
-                button:
-                  width: 42px
-                  height: 42px
-                icon:
-                  margin-top: 0
-                name:
-                  margin-top: 20px
-          style: |
-            div.flex-box {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              margin: -14px !important;   
-            }
-      style: |
-        ha-card { 
-          margin-bottom: 10px !important;
-          padding: 0 16px;
-          border-radius: 34px !important;
-          margin-left: 20px;
-          margin-right: 20px;
-        }
----------------------------------------------------------
-#ตรงนี้ของ add card ผ่าน manual ตรงหน้า dashboard ได้เลย
-
-type: custom:vertical-stack-in-card
+type: custom:stack-in-card
+mode: horizontal
+card_mod:
+  style: |
+    @media (min-width:180px) { #แก้ไขให้เหมาะกับหน้ามือถือ
+      ha-card {
+        z-index: 1; 
+        position: fixed;
+        bottom: 10px; 
+        left: 0px; #แก้ไขให้เหมาะกับหน้ามือถือของคุณ
+        width: calc(100% - 20px); #แก้ไขให้เหมาะกับหน้ามือถือ -20 แก้ไขได้
+      
+        padding: 5px 0px 5px 5px; #แก้ไขให้เหมาะกับหน้ามือถือของคุณได้
+        border-radius: 100px !important; #แก้ไขให้เหมาะกับหน้ามือถือของคุณได้
+        margin: -5px 19px 0px 19px; #แก้ไขให้เหมาะกับหน้ามือถือของคุณได้
+        background: var(--ha-card-background);
+        border-color: rgba(12, 12, 14, 0);
+        border-style: outset;
+        border-width: 0px;
+        box-shadow: 1px 1px 2px 0px rgba(10, 10, 10,0);
+      }
+    }
+    @media (min-width:800px) {
+      ha-card {
+        width: calc(50% - 30px);
+        left: calc(40% - 20px);
+      }
+    }             
 cards:
-  - type: custom:decluttering-card
-    template: footer_sticky_menu
-style: |
-  :host {
-    position: sticky !important;
-    bottom: 0px;
-    margin-bottom: 10px !important;
-    animation: 1.2s position ease-in-out;
-  }
-  @keyframes position {
-    0% { bottom: -80px; }
-    20% { bottom: -80px; }
-    70% { bottom: 26px; }
-    90% { bottom: 24px; }
-    100% { bottom: 26px; }
-  }
-  ha-card { 
-    background: none;
-    border-radius: 26px !important;
-  }
-  :host:before {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: -26px;
-    left: -8px;
-    padding-right: 16px;
-    height: 130px;
-    width: 100%; 
-    pointer-events: none;
-    animation: 1.2s opacity ease-in-out;
-  }
-  @keyframes opacity {
-    0% { opacity: 0; }
-    20% { opacity: 0; }
-    100% { opacity: 1; }
-  }
+  - type: custom:button-card
+    icon: mdi:garage
+    navigation_path: pathของคุณ
+    styles:
+      img_cell:
+        - width: 50px;
+        - height: 50px;
+        - align-self: end
+        - border: 0.1rem solid var(--sidebar-button-border-color)
+      custom_fields:
+        - line-height: 21px
+      card:
+        - background: none
+        - padding: 0
+  - type: custom:button-card
+    icon: mdi:bed
+    navigation_path: pathของคุณ
+    styles:
+      img_cell:
+        - width: 50px;
+        - height: 50px;
+        - align-self: end
+        - border: 0.1rem solid var(--sidebar-button-border-color)
+      custom_fields:
+        - line-height: 21px
+      card:
+        - background: none
+        - padding: 0
+  - type: custom:button-card
+    icon: mdi:chef-hat
+    navigation_path: pathของคุณ
+    styles:
+      img_cell:
+        - width: 50px;
+        - height: 50px;
+        - align-self: end
+        - border: 0.1rem solid var(--sidebar-button-border-color)
+      custom_fields:
+        - line-height: 21px
+      card:
+        - background: none
+        - padding: 0
+  - type: custom:button-card
+    icon: mdi:shower-head
+    navigation_path: pathของคุณ
+    styles:
+      img_cell:
+        - width: 50px;
+        - height: 50px;
+        - align-self: end
+        - border: 0.1rem solid var(--sidebar-button-border-color)
+      custom_fields:
+        - line-height: 21px
+      card:
+        - background: none
+        - padding: 0
+  - type: custom:button-card
+    icon: mdi:land-plots
+    navigation_path: pathของคุณ
+    styles:
+      img_cell:
+        - width: 50px;
+        - height: 50px;
+        - align-self: end
+        - border: 0.1rem solid var(--sidebar-button-border-color)
+      custom_fields:
+        - line-height: 21px
+      card:
+        - background: none
+        - padding: 0
